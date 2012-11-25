@@ -39,7 +39,7 @@ following class provides a simple solution using an ODM Repository.
             // create a new Route and set our document as
             // a default (so that we can retrieve it from the request)
             $route = new SymfonyRoute($ep->getPath(), array(
-                'document' => $document,
+                'document' => $myDocument,
             ));
 
             // add the route to the RouteCollection using
@@ -52,17 +52,18 @@ following class provides a simple solution using an ODM Repository.
         // this method is used to generate URLs, e.g. {{ path('foobar') }}
         public function getRouteByName($name, $params = array())
         {
-            $document = $this->findOneBy(array(
+            $myDocument = $this->findOneBy(array(
                 'name' => $name,
             ));
 
-            if ($route) {
-                $route = new SymfonyRoute($route->getPattern(), array(
-                    'document' => $document,
+            if ($myDocument) {
+                $route = new SymfonyRoute($myDocument->getUrl(), array(
+                    'document' => $myDocument,
                 ));
+                return $route;
             }
 
-            return $route;
+            return null;
         }
     }
 
