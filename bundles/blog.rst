@@ -23,6 +23,7 @@ Dependencies
 ------------
 
 * :doc:`SymfonyCmfRoutingExtraBundle<routing-extra>` is used to manage the routing.
+* :doc:`SymfonyCmfRoutingAutoBundle<routing_auto>` is used to automatically create routes.
 * :doc:`PHPCR-ODM<phpcr-odm>` is used to persist the bundles documents.
 
 Configuration
@@ -33,27 +34,14 @@ need to cusomize it to fit your own requirements.
 
 Parameters:
 
-* **routing_post_controller** - specifies which controller to use for showing posts.
-* **routing_post_prefix** - this is the part of the URL which "prefixes" the post slug
-   e.g. with the default value the following post URL might be generated: ``http://example.com/my-blog/posts/this-is-my-post``
 * **blog_basepath** - *required* Specify the path where the blog content should be placed.
-* **routing_basepath** - *required* Specify the basepath for the routing system.
 
 Example:
 
 .. code-block:: yaml
 
     symfony_cmf_blog:
-        routing_post_controller: symfony_cmf_blog.blog_controller:viewPost
-        routing_post_prefix: posts
         blog_basepath: /cms/content
-        routing_basepath: /cms/routes
-
-.. note::
-
-   In the BlogBundle the controller is a *service*, and is referenced as such. You can
-   of course specify a controller using the standard `MyBundle:Controller:action`
-   syntax. See `controllers as services <http://symfony.com/doc/current/cookbook/controller/service.html>`_ in the official sf2 docs.
 
 Routing
 ~~~~~~~
@@ -72,6 +60,27 @@ in ``app/config/config.yml``:
             controllers_by_class:
                 ...
                 Symfony\Cmf\Bundle\BlogBundle\Document\Blog: symfony_cmf_blog.blog_controller:listAction
+
+.. note::
+
+   In the BlogBundle the controller is a *service*, and is referenced as such. You can
+   of course specify a controller using the standard `MyBundle:Controller:action`
+   syntax. See `controllers as services <http://symfony.com/doc/current/cookbook/controller/service.html>`_ in the official sf2 docs.
+
+To enable the automatic creation of routes you will also need to configure
+the automatic routing system. This can be done simply by importing the default
+configuration:
+
+.. code-block:: yaml
+
+    import: { @SymfonyCmfBlogBundle/Resources/config/routing/autoroute_default.yml }
+
+This default configuration will create URLs of the format ``/blog/my-blog/2013-12-11/my-blog-post``
+where ``my-blog`` is the blog title, ``2013-12-11`` is the post date and ``my-blog-post``
+is the title of the post.
+
+You can easily customize this configuration, see the :doc:`routing_auto` documentation 
+for more information.
 
 Sonata Admin
 ~~~~~~~~~~~~
@@ -108,9 +117,6 @@ to enable blog edition from the tree browser. Expose the routes in the
             - admin_bundle_blog_blog_create
             - admin_bundle_blog_blog_delete
             - admin_bundle_blog_blog_edit
-
-Integration
------------
 
 Templating
 ~~~~~~~~~~
