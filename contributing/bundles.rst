@@ -15,6 +15,9 @@ order for them to be classified as stable:
 * `Configuration, files and formats`_;
 * `Testing Component Integration`_.
 
+There is an automatically generated `Checklist`_ based on this document, which
+can be copy-pasted into a github issue.
+
 The rest of this document will explain each of the above requirements in
 detail.
 
@@ -192,3 +195,4 @@ instructions on how the component should be integrated.
 .. _`XLIFF format`: http://symfony.com/doc/current/book/translation.html#basic-translation
 .. _`CONTRIBUTING file from CoreBundle`: https://github.com/symfony-cmf/CoreBundle/blob/master/CONTRIBUTING.md
 .. _`LICENSE template on wiki`: https://github.com/symfony-cmf/symfony-cmf/wiki/LICENSE-Template
+.. _`Checklist`: http://cmf-utils.dantleech.com/bs_checklist.php
